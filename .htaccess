@@ -1,0 +1,13 @@
+Options +FollowSymlinks -MultiViews
+RewriteEngine on
+
+# to make `/path/index.php` to /path/
+RewriteCond %{THE_REQUEST} ^GET\s(.*/)index\.php [NC]
+RewriteRule . %1 [NE,R=301,L]
+
+RewriteCond %{THE_REQUEST} ^GET\s.+\.php [NC]
+RewriteRule ^(.+)\.php$ /$1 [NE,R=301,L,NC]
+
+RewriteCond %{REQUEST_URI} !\.php$ [NC]
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule . %{REQUEST_URI}.php [L]
